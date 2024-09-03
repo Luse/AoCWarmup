@@ -12,26 +12,23 @@ func check(e error) {
 	}
 }
 
-func main() {
-	dat, err := os.ReadFile("input.txt")
-	check(err)
+func MainOneStar(input []byte) int {
 	a1 := []string{}
 	b1 := [][]string{}
 	buffer := ""
 	largestSum := 0
-	for index, i := range string(dat) {
+	for index, i := range string(input) {
 		if i == 10 {
 			a1 = append(a1, buffer)
 			buffer = ""
-			if i == 10 && dat[index-1] == 10 {
+			if i == 10 && input[index-1] == 10 {
 				b1 = append(b1, a1)
 				a1 = []string{}
 			}
 		} else {
-			fmt.Println(string(i))
 			buffer += string(i)
 		}
-		if index == len(dat)-1 {
+		if index == len(input)-1 {
 			a1 = append(a1, buffer)
 			b1 = append(b1, a1)
 		}
@@ -53,4 +50,11 @@ func main() {
 
 	}
 	fmt.Println("OneStar: Largest Sum:", largestSum)
+	return largestSum
+}
+
+func main() {
+	dat, err := os.ReadFile("input.txt")
+	check(err)
+	MainOneStar(dat)
 }
